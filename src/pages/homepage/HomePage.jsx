@@ -1,8 +1,18 @@
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 import { Header } from '../../components/Header'
-import { products } from '../../data/products'
 import './HomePage.css'
 import CheckMark from '../../assets/images/icons/checkmark.png'
 export function HomePage() {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/products')
+      .then((response) => {
+        setProducts(response.data)
+      })
+  }, [])
+  
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="/home.png" />
