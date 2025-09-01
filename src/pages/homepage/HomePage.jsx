@@ -2,12 +2,14 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Header } from '../../components/Header'
 import './HomePage.css'
+import { moneyConvert } from '../../utils/money'
 import CheckMark from '../../assets/images/icons/checkmark.png'
-export function HomePage() {
+export function HomePage({cart}) {
   const [products, setProducts] = useState([])
+  
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/products')
+    axios.get('api/products')
       .then((response) => {
         setProducts(response.data)
       })
@@ -16,7 +18,7 @@ export function HomePage() {
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="/home.png" />
-      <Header />
+      <Header cart={cart} />
 
       <div className="home-page">
         <div className="products-grid">
@@ -41,7 +43,7 @@ export function HomePage() {
                 </div>
 
                 <div className="product-price">
-                  ${(product.priceCents/100).toFixed(2)}
+                  {moneyConvert(product.priceCents)}
                 </div>
 
                 <div className="product-quantity-container">
