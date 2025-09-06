@@ -1,5 +1,7 @@
 
 import { NavLink } from 'react-router'
+import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import './Header.css'
 import logoWhite from '../assets/images/logo-white.png'
 import MobileLogoWhite from '../assets/images/mobile-logo-white.png'
@@ -11,6 +13,9 @@ export function Header( {cart} ) {
   cart.forEach((item) => {
     cartQuantity += item.quantity;
   })
+
+  const [searchInput, setSearchInput] = useState('')
+  const navigate = useNavigate()
   return (
     <div className="header">
       <div className="left-section">
@@ -23,9 +28,18 @@ export function Header( {cart} ) {
       </div>
 
       <div className="middle-section">
-        <input className="search-bar" type="text" placeholder="Search" />
+        <input 
+          className="search-bar" 
+          type="text" 
+          placeholder="Search" 
+          onChange={(e) => setSearchInput(e.target.value)}
+          />
 
-        <button className="search-button">
+        <button className="search-button"
+          onClick={() => {
+            navigate(`/?search=${searchInput}`)
+          }}
+        >
           <img className="search-icon" src={SearchIcon} />
         </button>
       </div>

@@ -7,7 +7,7 @@ import BuyAgain from '../../assets/images/icons/buy-again.png'
 import dayjs from 'dayjs'
 import { moneyConvert } from '../../utils/money'
 
-export function OrderPage( {cart} ) {
+export function OrderPage( {cart, loadCart} ) {
   const [orders, setOrders] = useState([])
 
   useEffect(() => {
@@ -51,6 +51,13 @@ export function OrderPage( {cart} ) {
 
               <div className="order-details-grid">
                 {order.products.map((orderProduct) => {
+                    const addTocart = async () => {
+                      await axios.post('/api/cart-items', {
+                        productId: orderProduct.product.id,
+                        quantity: 1
+                    })
+                    await loadCart()
+          }
                   return (
                     <Fragment key={orderProduct.product.id}>
                       <div className="product-image-container">
@@ -67,7 +74,10 @@ export function OrderPage( {cart} ) {
                         <div className="product-quantity">
                           Quantity: {orderProduct.quantity}
                         </div>
-                        <button className="buy-again-button button-primary">
+                        <button 
+                          className="buy-again-button button-primary"
+                          onClick={addTocart}
+                        >
                           <img className="buy-again-icon" src={BuyAgain} />
                           <span className="buy-again-message">Add to Cart</span>
                         </button>

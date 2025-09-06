@@ -92,6 +92,21 @@
   }
 }
 
+.checkout-page .quantity-input {
+  width: 50px;
+  padding: 2px 5px;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 3px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center;
+  display: none;
+}
+
+.checkout-page .quantity-input.visible{
+  display: inline;
+}
+
 .checkout-page .product-image {
   max-width: 100%;
   max-height: 120px;
